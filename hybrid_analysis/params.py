@@ -9,3 +9,13 @@ class Params(BaseModel):
 
     fshigh: float = Field(300.0, description="High pass filter frequency")
 
+    waveform_shape = Field((-21, 40), description='Time samples either side of spike event')
+
+    waveform_width: int = Field(20, description='No of channels per spike event')
+
+    n_svds: int = Field(9, description='No of SVD components used in waveform de-noising')
+
+    @property
+    def waveform_length(self):
+        return self.waveform_shape[1] - self.waveform_shape[0]
+

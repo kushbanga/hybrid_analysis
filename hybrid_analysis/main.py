@@ -4,7 +4,7 @@ import shutil
 
 from one.api import OneAlyx
 
-from pykilosort import Bunch, run, add_default_handler
+from pykilosort import run
 
 from .preprocess import preprocess_raw_data
 from .params import Params
@@ -68,3 +68,25 @@ def setup(pid):
 
     # Fix path to raw data in Phy params.py file
     change_params_path(PHY_DIR)
+
+
+def run_hybrids(pid, cluster_ids):
+    """
+
+    :param pid: Probe id, string
+    :param cluster_ids: Clusters to be re-inserted, list of integers
+    """
+    params = Params()
+
+    # Delete files in Phy folder
+    os.remove(PHY_DIR / 'raw_data.bin')
+    shutil.rmtree(PHY_DIR / 'output')
+
+    hybrid_dir = ROOT_DIR / pid
+    output_dir = hybrid_dir / 'output'
+
+    # Folder for storing hybrid datasets
+    datasets_dir = hybrid_dir / 'hybrid_datasets'
+    if not os.path.isdir(datasets_dir):
+        os.mkdir(datasets_dir)
+
