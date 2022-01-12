@@ -1,5 +1,11 @@
 import numpy as np
-from pykilosort import Bunch
+
+
+class Bunch(dict):
+    """A subclass of dictionary with an additional dot syntax."""
+    def __init__(self, *args, **kwargs):
+        super(Bunch, self).__init__(*args, **kwargs)
+        self.__dict__ = self
 
 
 def np1_probe():
